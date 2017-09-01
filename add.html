@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="addcss.css">
+
+      <!-- 
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="style.css">
+       -->
+     
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+ 
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+   <nav class="navbar">
+   
+   <!-- <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons"></i></a>
+    --> 
+
+ 
+    <a href="#" class="left"> <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> Welcome</a>
+     <a href="#" class="right">Contact</a>
+     <a href="#" class="right">About</a>
+     <a href="new.html" class="rightlast">Home</a>
+   </nav>
+     <div class="row">
+ <form class="forms">
+      <div class="row">
+             <div class="input-field col s2"></div>
+      </div>
+      <div class="row">
+             <div class="input-field col s2"></div>
+         <div class="input-field col s4">
+          <input id="first" type="text" <!-- class="validate" -->
+          <label for="first">First Name</label>
+         </div>
+         <div class="input-field col s4">
+          <input id="last" type="text" <!-- class="validate">
+          <label for="last">Last Name</label>
+         </div>
+      </div>
+      <div class="row">   
+         <div class="input-field col s2"></div>
+         <div class="input-field col s6">
+          <input id="email" type="email" <!-- class="validate" -->
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">   
+         <div class="input-field col s2"></div>
+         <div class="input-field col s6">
+          <input id="password" type="password" <!-- class="validate" -->
+          <label for="password">Password</label>
+         </div>
+      </div>
+      
+      <div class="row">  
+        <div class="input-field col s2"></div>
+        <div class="input-field col s6">
+              <select id="option">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="Cse">Cse</option>
+                        <option value="Ece">Ece</option>
+                        <option value="It">It</option>
+                        <option value="Mech">Mech</option>
+              </select>
+            <label>Stream</label>
+        </div>
+       </div>
+       <div class="row"> 
+        <div class="input-field col s2"></div>
+        <div class="input-field col s6">
+              <a class="waves-effect waves-light btn" id="submit" >Submit</a>
+        </div>
+       </div>
+  </form>
+  </div>
+  <script type="text/javascript">
+     $(document).ready(function() {
+    $('select').material_select();
+  });
+  </script>
+   <script type="text/javascript">
+  $(document).ready(function(){
+      $('#submit').on("click",function(){
+        var ch=0;
+        var user= ({
+          first : $('#first').val(),
+          last : $('#last').val(),
+         email : $('#email').val(),
+         pass : $('#password').val(),
+         option : $('#option').val(),
+
+         });
+        if(user.first=="" || user.first==null)
+        {
+          alert("Please enter first name");
+          return false;
+        }
+        if(user.last=="" || user.last==null)
+        {
+          alert("Please enter last name");
+          return false;
+        }
+        if(user.email=="" || user.email==null)
+        {
+          alert("Please enter email");
+          return false;
+        }
+        if(user.pass=="" || user.pass==null)
+        {
+          alert("Please enter password");
+          return false;
+        }
+        if(user.option=="" || user.option==null)
+        {
+          alert("Please choose an option");
+          return false;
+        }
+         
+        users = localStorage.getItem('signups');
+          users = users ? JSON.parse(users) : [];
+          console.log(users);
+      
+      $.each(users,function(key,value){
+            
+          //  console.log();
+            if(user.email==value.email)
+                  {
+                      ch++;
+                      
+                      return false;
+                  }
+                     
+              
+                
+           });
+                    
+       if (ch==0)
+              {
+                  users.push(user);
+                 localStorage.setItem("signups", JSON.stringify(users));
+                  window.location.reload();
+           
+              }    
+              else 
+              {
+                alert("E-Mail alreasy exits");
+                   
+              }
+
+      });
+  });
+  
+  
+</script>
+  </body>
+  </html>

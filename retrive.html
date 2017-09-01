@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="retrivecss.css">
+
+      <!-- 
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="style.css">
+       -->
+     
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+ 
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+   <nav class="navbar">
+   
+   <!-- <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons"></i></a>
+    --> 
+
+ 
+    <a href="#" class="left"> <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> Welcome</a>
+     <a href="#" class="right">Contact</a>
+     <a href="#" class="right">About</a>
+     <a href="new.html" class="rightlast">Home</a>
+   </nav>
+ <div class="row">  
+  <form>
+  <div class="row">
+             <div class="input-field col s2"></div>
+      </div>
+   <div class="row">  
+        <div class="input-field col s3"></div>
+        <div class="input-field col s6">
+              <select id="option">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">First Name</option>
+                        <option value="2">Last name</option>
+                        <option value="3">Email</option>
+                        <option value="4">Stream</option>
+              </select>
+            <label>Sort By</label>
+        </div>
+       </div>
+       <div class="row"> 
+        <div class="input-field col s3"></div>
+        <div class="input-field col s6">
+              <a class="waves-effect waves-light btn" id="submit" onclick="sort()">Submit</a>
+        </div>
+       </div>
+ </form>
+ </div>
+ <script type="text/javascript">
+     $(document).ready(function() {
+    $('select').material_select();
+  });
+  </script>
+  <div class="row">
+   <div class="input-field col s3"></div>
+        <div class="input-field col s6">
+        <table id="tab" cellspacing="2px" cellpadding="5px" >
+            <thead><th>First Name</th>
+            <th> Last Name </th>
+            <th> Email  </th>
+            <th> Stream  </th>
+            </thead>
+            <tbody></tbody>
+            <!-- <tr>
+            <th>First Name</th>
+            <th> Last Name </th>
+            <th> Email  </th>
+            <th> Stream  </th>
+            </tr> -->
+        </table>
+             
+        </div>
+   </div>
+   <!-- <script type="text/javascript">
+     function clearTable()
+      {
+        var tableRef = document.getElementById('tab');
+        while ( tableRef.rows.length > 0 )
+         {
+             tableRef.deleteRow(0);
+          }
+         }
+   </script> -->
+  <script type="text/javascript">
+   function sort(){
+    var mytab= document.getElementById("tab");
+        var item=[];
+        var value;
+          item = localStorage.getItem('signups');
+         item = item ? JSON.parse(item) : [];
+          value= document.getElementById('option').value;
+          console.log(value);
+          if (value==1)
+          {
+            /*console.log(item);
+            console.log("1");
+            console.log(item[0].first);
+             console.log(item[0]);
+          */
+         var rowCount = tab.rows.length;
+             for (var i = rowCount - 1; i > 0; i--) {
+                tab.deleteRow(i);
+              }
+           
+           item.sort(function(a, b) {
+                 var nameA = a.first.toUpperCase(); // ignore upper and lowercase
+                 var nameB = b.first.toUpperCase(); // ignore upper and lowercase
+                 if (nameA < nameB) {
+                      return -1;
+                 }
+                 if (nameA > nameB) {
+                     return 1;
+                }
+
+                 // names must be equal
+                 return 0;
+               });
+           
+          
+         /*  var foo = "<hr width='2000%'>";
+
+         var rn=mytab.insertRow(0);
+           rn.innerHTML="FisrtName";*/
+          for (var i = 0; i < item.length; i++) {
+           /*document.getElementById("df").innerHTML = item[i].first;
+           document.getElementById("dl").innerHTML = item[i].last;
+           document.getElementById("de").innerHTML = item[i].email;
+           document.getElementById("ds").innerHTML = item[i].option;*/
+
+           var row1=mytab.insertRow(i+1);
+           ncol1=row1.insertCell(0);
+           ncol2=row1.insertCell(1);
+           ncol3=row1.insertCell(2);
+           ncol4=row1.insertCell(3);
+            ncol1.innerHTML=item[i].first;
+            ncol2.innerHTML=item[i].last;
+            ncol3.innerHTML=item[i].email;
+            ncol4.innerHTML=item[i].option;
+
+          }
+          
+
+        }
+        
+      if (value==2)
+          {
+            /*console.log(item);
+            console.log("1");
+            console.log(item[0].first);
+             console.log(item[0]);
+          */
+             var rowCount = tab.rows.length;
+             for (var i = rowCount - 1; i > 0; i--) {
+                tab.deleteRow(i);
+              }
+            /* while ( mytab.rows.length > 0 )
+             {
+               mytab.deleteRow(0);
+             }*/
+           
+           item.sort(function(a, b) {
+                 var nameA = a.last.toUpperCase(); // ignore upper and lowercase
+                 var nameB = b.last.toUpperCase(); // ignore upper and lowercase
+                 if (nameA < nameB) {
+                      return -1;
+                 }
+                 if (nameA > nameB) {
+                     return 1;
+                }
+
+                 // names must be equal
+                 return 0;
+               });
+           
+        /*var rn=mytab.insertRow(0);
+           rn.innerHTML="Last Name";*/
+          for (var i = 0; i < item.length; i++) {
+           /*document.getElementById("df").innerHTML = item[i].first;
+           document.getElementById("dl").innerHTML = item[i].last;
+           document.getElementById("de").innerHTML = item[i].email;
+           document.getElementById("ds").innerHTML = item[i].option;*/
+           var row1=mytab.insertRow(i+1);
+           ncol1=row1.insertCell(0);
+           ncol2=row1.insertCell(1);
+           ncol3=row1.insertCell(2);
+           ncol4=row1.insertCell(3);
+            ncol1.innerHTML=item[i].first;
+            ncol2.innerHTML=item[i].last;
+            ncol3.innerHTML=item[i].email;
+            ncol4.innerHTML=item[i].option;
+
+          }
+          
+        }
+
+if (value==3)
+          {
+            /*console.log(item);
+            console.log("1");
+            console.log(item[0].first);
+             console.log(item[0]);
+          */
+          var rowCount = tab.rows.length;
+             for (var i = rowCount - 1; i > 0; i--) {
+                tab.deleteRow(i);
+              }
+           
+           item.sort(function(a, b) {
+                 var nameA = a.email.toUpperCase(); // ignore upper and lowercase
+                 var nameB = b.email.toUpperCase(); // ignore upper and lowercase
+                 if (nameA < nameB) {
+                      return -1;
+                 }
+                 if (nameA > nameB) {
+                     return 1;
+                }
+
+                 // names must be equal
+                 return 0;
+               });
+        /* elem = document.createElement("hr");
+          elem.setAttribute("width", "1000px");
+          document.body.appendChild(elem);*/
+          for (var i = 0; i < item.length; i++) {
+           /*document.getElementById("df").innerHTML = item[i].first;
+           document.getElementById("dl").innerHTML = item[i].last;
+           document.getElementById("de").innerHTML = item[i].email;
+           document.getElementById("ds").innerHTML = item[i].option;*/
+           var row1=mytab.insertRow(i+1);
+           ncol1=row1.insertCell(0);
+           ncol2=row1.insertCell(1);
+           ncol3=row1.insertCell(2);
+           ncol4=row1.insertCell(3);
+            ncol1.innerHTML=item[i].first;
+            ncol2.innerHTML=item[i].last;
+            ncol3.innerHTML=item[i].email;
+            ncol4.innerHTML=item[i].option;
+
+          }
+         
+        }
+        if (value==4)
+          {
+            /*console.log(item);
+            console.log("1");
+            console.log(item[0].first);
+             console.log(item[0]);
+          */
+          var rowCount = tab.rows.length;
+             for (var i = rowCount - 1; i > 0; i--) {
+                tab.deleteRow(i);
+              }
+           item.sort(function(a, b) {
+                 var nameA = a.option.toUpperCase(); // ignore upper and lowercase
+                 var nameB = b.option.toUpperCase(); // ignore upper and lowercase
+                 if (nameA < nameB) {
+                      return -1;
+                 }
+                 if (nameA > nameB) {
+                     return 1;
+                }
+
+                 // names must be equal
+                 return 0;
+               });
+       
+          for (var i = 0; i < item.length; i++) {
+           /*document.getElementById("df").innerHTML = item[i].first;
+           document.getElementById("dl").innerHTML = item[i].last;
+           document.getElementById("de").innerHTML = item[i].email;
+           document.getElementById("ds").innerHTML = item[i].option;*/
+           var row1=mytab.insertRow(i+1);
+           ncol1=row1.insertCell(0);
+           ncol2=row1.insertCell(1);
+           ncol3=row1.insertCell(2);
+           ncol4=row1.insertCell(3);
+            ncol1.innerHTML=item[i].first;
+            ncol2.innerHTML=item[i].last;
+            ncol3.innerHTML=item[i].email;
+            ncol4.innerHTML=item[i].option;
+
+          }
+
+        }
+
+
+
+ 
+}
+
+    
+  </script>
